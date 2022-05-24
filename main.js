@@ -44,18 +44,28 @@ class GeckoIntouch2 extends utils.Adapter {
         Here a simple template for a boolean variable named "testVariable"
         Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
         */
-        await this.setObjectNotExistsAsync('testVariable', {
-            type: 'state',
+        await this.setObjectNotExistsAsync('Adapter', {
+            type: 'folder',
             common: {
-                name: 'testVariable',
-                type: 'boolean',
-                role: 'indicator',
+                name: 'Adapter',
+                type: 'folder',
+                role: 'folder',
                 read: true,
                 write: true,
             },
             native: {},
         });
-
+        await this.setObjectNotExistsAsync('Pools', {
+            type: 'folder',
+            common: {
+                name: 'Pools',
+                type: 'folder',
+                role: 'folder',
+                read: true,
+                write: true,
+            },
+            native: {},
+        });
         // In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
         this.subscribeStates('testVariable');
         // You can also add a subscription for multiple states. The following line watches all states starting with "lights."
@@ -68,21 +78,22 @@ class GeckoIntouch2 extends utils.Adapter {
             you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
         */
         // the variable testVariable is set to true as command (ack=false)
-        await this.setStateAsync('testVariable', true);
+        // await this.setStateAsync('testVariable', true);
 
         // same thing, but the value is flagged "ack"
         // ack should be always set to true if the value is received from or acknowledged from the target system
-        await this.setStateAsync('testVariable', { val: true, ack: true });
+        // await this.setStateAsync('testVariable', { val: true, ack: true });
 
         // same thing, but the state is deleted after 30s (getState will return null afterwards)
-        await this.setStateAsync('testVariable', { val: true, ack: true, expire: 30 });
+        // await this.setStateAsync('testVariable', { val: true, ack: true, expire: 30 });
 
         // examples for the checkPassword/checkGroup functions
-        let result = await this.checkPasswordAsync('admin', 'iobroker');
-        this.log.info('check user admin pw iobroker: ' + result);
+        // let result = await this.checkPasswordAsync('admin', 'iobroker');
+        // this.log.info('check user admin pw iobroker: ' + result);
 
-        result = await this.checkGroupAsync('admin', 'admin');
-        this.log.info('check group user admin group admin: ' + result);
+        // result = await this.checkGroupAsync('admin', 'admin');
+        // this.log.info('check group user admin group admin: ' + result);
+        this.log.info('started');
     }
 
     /**
